@@ -13,9 +13,7 @@ MyGLWidget::~MyGLWidget()
 
 void MyGLWidget::initializeGL()
 {
-	glViewport(0, 0, width(), height());
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-	glDisable(GL_DEPTH_TEST);
+	
 }
 
 void MyGLWidget::paintGL()

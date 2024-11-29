@@ -9,8 +9,10 @@
 #include <QtGui>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include "steve.h"
+#include "camera.h"
 
-class MyGLWidget : public QOpenGLWidget{
+class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
     Q_OBJECT
 
 public:
@@ -18,14 +20,14 @@ public:
     ~MyGLWidget();
 
 protected:
-    void initializeGL();
-    void paintGL();
-    void resizeGL(int width, int height);
-	void keyPressEvent(QKeyEvent *e);
+    void initializeGL() override;
+    void paintGL() override;
+    void resizeGL(int width, int height) override;
+    void keyPressEvent(QKeyEvent *e) override;
 
 private:
-	int scene_id;
-	void scene_0();
-	void scene_1();
+    Steve steve;    // 人物
+    Camera camera;  // 摄像机
 };
+
 #endif // MYGLWIDGET_H

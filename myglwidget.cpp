@@ -1,92 +1,74 @@
 #include "myglwidget.h"
+#include <iostream>
 
+// 构造函数，初始化 Steve 和 Camera
 MyGLWidget::MyGLWidget(QWidget *parent)
-	:QOpenGLWidget(parent),
-	scene_id(0)
-{
+    : QOpenGLWidget(parent),
+      steve(2.0f),  // 设置人物大小为边长2.0
+      camera(15.0f, 10.0f, 10.0f) { // 初始化摄像机，半径10.0，高度5.0，旋转速度5.0
 }
 
-MyGLWidget::~MyGLWidget()
-{
+MyGLWidget::~MyGLWidget() {}
 
+// 初始化 OpenGL 环境
+void MyGLWidget::initializeGL() {
+    initializeOpenGLFunctions();
+    glEnable(GL_DEPTH_TEST); // 开启深度测试
+    glEnable(GL_LIGHTING);   // 开启光照
+    glEnable(GL_LIGHT0);     // 开启默认光源
+
+    // 配置光源
+    GLfloat lightPosition[] = { 5.0f, 10.0f, 5.0f, 1.0f };
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+
+    GLfloat lightAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+    GLfloat lightDiffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+    GLfloat lightSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+
+    glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpecular);
+
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // 背景颜色
 }
 
-void MyGLWidget::initializeGL()
-{
-	
+// 渲染场景
+void MyGLWidget::paintGL() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    // 设置摄像机视角
+    camera.setView();
+
+    // 绘制人物
+    steve.draw();
+
+    glFlush();
 }
 
-void MyGLWidget::paintGL()
-{
-	if (scene_id==0) {
-		scene_0();
-	}
-	else {
-		scene_1();
-	}
+// 调整窗口大小
+void MyGLWidget::resizeGL(int width, int height) {
+    glViewport(0, 0, width, height);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45.0, GLfloat(width) / height, 0.1, 100.0);
+    glMatrixMode(GL_MODELVIEW);
 }
 
-void MyGLWidget::resizeGL(int width, int height)
-{
-	glViewport(0, 0, width, height);
-	update();
-}
-
+// 处理键盘输入
 void MyGLWidget::keyPressEvent(QKeyEvent *e) {
-	//Press 0 or 1 to switch the scene
-	if (e->key() == Qt::Key_0) {
-		scene_id = 0;
-		update();
-	}
-	else if (e->key() == Qt::Key_1) {
-		scene_id = 1;
-		update();
-	}
-}
-
-void MyGLWidget::scene_0()
-{
-	glClear(GL_COLOR_BUFFER_BIT);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0.0f, 100.0f, 0.0f, 100.0f, -1000.0f, 1000.0f);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glTranslatef(50.0f, 50.0f, 0.0f);
-	
-	//draw a diagonal "I"
-	glPushMatrix();
-	glColor3f(0.839f, 0.153f, 0.157f);
-	glRotatef(45.0f, 0.0f, 0.0f, 1.0f);
-	glTranslatef(-2.5f, -22.5f, 0.0f);
-	glBegin(GL_TRIANGLES);
-	glVertex2f(0.0f, 0.0f);
-	glVertex2f(5.0f, 0.0f);
-	glVertex2f(0.0f, 45.0f);
-
-	glVertex2f(5.0f, 0.0f);
-	glVertex2f(0.0f, 45.0f);
-	glVertex2f(5.0f, 45.0f);
-
-	glEnd();
-	glPopMatrix();	
-}
-
-void MyGLWidget::scene_1()
-{
-	glClear(GL_COLOR_BUFFER_BIT);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0.0f, width(), 0.0f, height(), -1000.0f, 1000.0f);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glTranslatef(0.5 * width(), 0.5 * height(), 0.0f);
-
-    //your implementation here, maybe you should write several glBegin
-	glPushMatrix();
-	//your implementation
-	
-	glPopMatrix();
+    switch (e->key()) {
+    case Qt::Key_Z:
+        camera.rotateClockwise();
+        update(); // 触发重新绘制
+        break;
+    case Qt::Key_C:
+        camera.rotateCounterClockwise();
+        update(); // 触发重新绘制
+        break;
+    default:
+        QOpenGLWidget::keyPressEvent(e);
+    }
 }

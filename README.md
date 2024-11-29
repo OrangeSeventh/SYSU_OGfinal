@@ -56,3 +56,5 @@
 [太阳系](https://github.com/wongsiyoung/ComputerGraphics/tree/master/%E6%9C%9F%E6%9C%AB-%E5%A4%AA%E9%98%B3%E7%B3%BB)
 
 [迷宫](https://github.com/linggm3/SYSU_Computer-Graphics/blob/main/HWF_%E6%9C%9F%E6%9C%AB%E5%A4%A7%E4%BD%9C%E4%B8%9A-%E8%BF%B7%E5%AE%AB%E6%B8%B8%E6%88%8F/report_p.pdf)
+
+D:\glew-2.1.0\lib\Release\x64

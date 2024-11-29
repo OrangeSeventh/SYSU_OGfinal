@@ -4,8 +4,8 @@
 // 构造函数，初始化 Steve 和 Camera
 MyGLWidget::MyGLWidget(QWidget *parent)
     : QOpenGLWidget(parent),
-      steve(2.0f),  // 设置人物大小为边长2.0
-      camera(15.0f, 10.0f, 10.0f) { // 初始化摄像机，半径10.0，高度5.0，旋转速度5.0
+      steve(0.3f),  // 设置人物大小为边长2.0
+      camera(15.0f, 15.0f, 10.0f) { // 初始化摄像机，半径15.0，高度10.0，旋转速度10.0
 }
 
 MyGLWidget::~MyGLWidget() {}

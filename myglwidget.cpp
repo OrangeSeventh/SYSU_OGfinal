@@ -1,28 +1,13 @@
 #include "myglwidget.h"
-#include <iostream>
-#include <QOpenGLTexture> // 用于加载纹理       
+#include <iostream>    
 
 
-class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
-    Q_OBJECT
-public:
-    MyGLWidget(QWidget *parent = nullptr);
-    ~MyGLWidget();
-
-protected:
-    void initializeGL() override;
-    void paintGL() override;
-
-private:
-    void drawSkyBox(); // 绘制天空盒函数
-    QOpenGLTexture *skyboxTextures[6]; // 存储6个面的纹理
-};
 
 // 构造函数
 MyGLWidget::MyGLWidget(QWidget *parent)
     : QOpenGLWidget(parent),
       steve(0.3f), // 设置人物大小
-      camera(15.0f, 15.0f, 10.0f) {} // 初始化摄像机
+      camera(15.0f, 20.0f, 10.0f) {} // 初始化摄像机
 
 // 析构函数
 MyGLWidget::~MyGLWidget() {
@@ -39,12 +24,13 @@ void MyGLWidget::initializeGL() {
     glEnable(GL_LIGHT0);     // 开启默认光源
 
     // 配置光源
-    GLfloat lightPosition[] = { 5.0f, 10.0f, 5.0f, 1.0f };
+    GLfloat lightPosition[] = { 1.0f, 1.0f, 1.0f, 1.0f };  // 将光源设置为在原点
     glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 
-    GLfloat lightAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-    GLfloat lightDiffuse[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-    GLfloat lightSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    // 设置光源的环境光（充足的环境光使得天空盒看起来亮一些）
+    GLfloat lightAmbient[] = { 0.6f, 0.6f, 0.6f, 1.0f };  // 增加环境光
+    GLfloat lightDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };  // 白色散射光
+    GLfloat lightSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f }; // 镜面光设置
 
     glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
@@ -54,19 +40,20 @@ void MyGLWidget::initializeGL() {
 
     // 加载天空盒纹理
     const QString faces[6] = {
-        "skybox_image/2.jpg",  // 右
-        "skybox_image/1.jpg",   // 左
-        "skybox_image/top.jpg",    // 上
-        "skybox_image/bottom.jpg", // 下
-        "skybox_image/3.jpg",  // 前
-        "skybox_image/4.jpg"    // 后
+        "C:/Users/Orange_Seventh/Desktop/计图/SYSU_OGfinal/skybox_image/2.bmp",  // 右
+        "C:/Users/Orange_Seventh/Desktop/计图/SYSU_OGfinal/skybox_image/1.bmp",   // 左
+        "C:/Users/Orange_Seventh/Desktop/计图/SYSU_OGfinal/skybox_image/top.bmp",    // 上
+        "C:/Users/Orange_Seventh/Desktop/计图/SYSU_OGfinal/skybox_image/bottom.bmp", // 下
+        "C:/Users/Orange_Seventh/Desktop/计图/SYSU_OGfinal/skybox_image/3.bmp",  // 前
+        "C:/Users/Orange_Seventh/Desktop/计图/SYSU_OGfinal/skybox_image/4.bmp"    // 后
     };
-
+	
     for (int i = 0; i < 6; ++i) {
         skyboxTextures[i] = new QOpenGLTexture(QImage(faces[i]).mirrored());
         skyboxTextures[i]->setMinificationFilter(QOpenGLTexture::Linear);
         skyboxTextures[i]->setMagnificationFilter(QOpenGLTexture::Linear);
         skyboxTextures[i]->setWrapMode(QOpenGLTexture::ClampToEdge);
+
     }
 }
 
@@ -92,7 +79,7 @@ void MyGLWidget::drawSkyBox() {
     glDisable(GL_DEPTH_TEST); // 禁用深度测试
 
     // 放大天空盒，防止摄像机外露
-    glScalef(500.0f, 500.0f, 500.0f);
+    glScalef(100.0f, 100.0f, 100.0f);
 
     // 绘制每个面
     for (int i = 0; i < 6; ++i) {

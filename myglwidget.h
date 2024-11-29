@@ -9,6 +9,7 @@
 #include <QtGui>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <QOpenGLTexture>
 #include "steve.h"
 #include "camera.h"
 
@@ -26,8 +27,12 @@ protected:
     void keyPressEvent(QKeyEvent *e) override;
 
 private:
+
+    void drawSkyBox();
+
     Steve steve;    // 人物
     Camera camera;  // 摄像机
+    QOpenGLTexture *skyboxTextures[6]; // 天空盒纹理
 };
 
 #endif // MYGLWIDGET_H

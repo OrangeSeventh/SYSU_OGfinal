@@ -1,8 +1,1 @@
-﻿  MOC myglwidget.h
-  moc_myglwidget.cpp
-  main.cpp
-  myglwidget.cpp
-  正在生成代码...
-myglwidget.obj : error LNK2019: 无法解析的外部符号 glutSolidCube，函数 "public: void __cdecl Steve::draw(void)" (?draw@Steve@@QEAAXXZ) 中引用了该符号
-D:\VS\visual studio\VC\Tools\MSVC\14.41.34120\lib\x64\glut32.lib : warning LNK4272: 库计算机类型“x86”与目标计算机类型“x64”冲突
-debug\\CGTemplate.exe : fatal error LNK1120: 1 个无法解析的外部命令
+﻿  CGTemplate.vcxproj -> C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\debug\CGTemplate.exe

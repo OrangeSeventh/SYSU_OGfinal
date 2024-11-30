@@ -8,12 +8,11 @@
 #endif
 #include <QtGui>
 #include <QOpenGLWidget>
-// #include <QOpenGLFunctions>
-#include <QOpenGLFunctions_3_3_Core>
+#include <QOpenGLFunctions>
+#include "steve.h"
 #include "camera.h"
-#include "shader.h" // 添加着色器类
 
-class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
+class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
     Q_OBJECT
 
 public:
@@ -27,13 +26,8 @@ protected:
     void keyPressEvent(QKeyEvent *e) override;
 
 private:
+    Steve steve;    // 人物
     Camera camera;  // 摄像机
-    unsigned int skyboxVAO, skyboxVBO;
-    unsigned int cubemapTexture;
-    Shader *skyboxShader;
-    std::vector<std::string> faces;
-
-    unsigned int loadCubemap(std::vector<std::string> faces);
 };
 
 #endif // MYGLWIDGET_H

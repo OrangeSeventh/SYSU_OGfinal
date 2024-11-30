@@ -89,6 +89,7 @@
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <SubSystem>Console</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <AdditionalLibraryDirectories>D:\glew-2.1.0\lib\Release\x64</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>
@@ -129,7 +130,6 @@
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <SubSystem>Console</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <AdditionalLibraryDirectories>D:\glew-2.1.0\lib\Release\x64</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <DefaultCharType>Unsigned</DefaultCharType>

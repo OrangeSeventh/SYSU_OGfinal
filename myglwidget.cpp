@@ -9,27 +9,44 @@
 
 // 天空盒顶点数据
 float skyboxVertices[] = {
-    -1.0f,  1.0f, -1.0f,  -1.0f, -1.0f, -1.0f,   1.0f, -1.0f, -1.0f,
-     1.0f, -1.0f, -1.0f,   1.0f,  1.0f, -1.0f,  -1.0f,  1.0f, -1.0f,
-    -1.0f, -1.0f,  1.0f,  -1.0f, -1.0f, -1.0f,  -1.0f,  1.0f, -1.0f,
-    -1.0f,  1.0f, -1.0f,  -1.0f,  1.0f,  1.0f,  -1.0f, -1.0f,  1.0f,
-     1.0f, -1.0f, -1.0f,   1.0f, -1.0f,  1.0f,   1.0f,  1.0f,  1.0f,
-     1.0f,  1.0f,  1.0f,   1.0f,  1.0f, -1.0f,   1.0f, -1.0f, -1.0f,
-    -1.0f, -1.0f,  1.0f,  -1.0f,  1.0f,  1.0f,   1.0f,  1.0f,  1.0f,
-     1.0f,  1.0f,  1.0f,   1.0f, -1.0f,  1.0f,  -1.0f, -1.0f,  1.0f,
-    -1.0f,  1.0f, -1.0f,   1.0f,  1.0f, -1.0f,   1.0f,  1.0f,  1.0f,
-     1.0f,  1.0f,  1.0f,  -1.0f,  1.0f,  1.0f,  -1.0f,  1.0f, -1.0f,
-    -1.0f, -1.0f, -1.0f,  -1.0f, -1.0f,  1.0f,   1.0f, -1.0f, -1.0f,
-     1.0f, -1.0f, -1.0f,  -1.0f, -1.0f,  1.0f,   1.0f, -1.0f,  1.0f
+    -100.0f,  100.0f, -100.0f,  -100.0f, -100.0f, -100.0f,   100.0f, -100.0f, -100.0f,
+     100.0f, -100.0f, -100.0f,   100.0f,  100.0f, -100.0f,  -100.0f,  100.0f, -100.0f,
+    -100.0f, -100.0f,  100.0f,  -100.0f, -100.0f, -100.0f,  -100.0f,  100.0f, -100.0f,
+    -100.0f,  100.0f, -100.0f,  -100.0f,  100.0f,  100.0f,  -100.0f, -100.0f,  100.0f,
+     100.0f, -100.0f, -100.0f,   100.0f, -100.0f,  100.0f,   100.0f,  100.0f,  100.0f,
+     100.0f,  100.0f,  100.0f,   100.0f,  100.0f, -100.0f,   100.0f, -100.0f, -100.0f,
+    -100.0f, -100.0f,  100.0f,  -100.0f,  100.0f,  100.0f,   100.0f,  100.0f,  100.0f,
+     100.0f,  100.0f,  100.0f,   100.0f, -100.0f,  100.0f,  -100.0f, -100.0f,  100.0f,
+    -100.0f,  100.0f, -100.0f,   100.0f,  100.0f, -100.0f,   100.0f,  100.0f,  100.0f,
+     100.0f,  100.0f,  100.0f,  -100.0f,  100.0f,  100.0f,  -100.0f,  100.0f, -100.0f,
+    -100.0f, -100.0f, -100.0f,  -100.0f, -100.0f,  100.0f,   100.0f, -100.0f, -100.0f,
+     100.0f, -100.0f, -100.0f,  -100.0f, -100.0f,  100.0f,   100.0f, -100.0f,  100.0f
 };
 
+
+std::vector<std::string> texturePaths = {
+    "textures/face_f.jpg", "textures/face_l.jpg", "textures/face_r.jpg", "textures/face_b.jpg", "textures/face_u.jpg", "textures/face_d.jpg",
+    "textures/body_f.jpg", "textures/body_l.jpg", "textures/body_r.jpg", "textures/body_b.jpg", "textures/body_u.jpg", "textures/body_d.jpg",
+    "textures/hand.jpg", "textures/hand.jpg", "textures/hand.jpg", "textures/hand.jpg", "textures/body_l.jpg", "textures/hand_d.jpg",
+    "textures/hand.jpg", "textures/hand.jpg", "textures/hand.jpg", "textures/hand.jpg", "textures/body_l.jpg", "textures/hand_d.jpg",
+    "textures/leg.jpg", "textures/leg.jpg", "textures/leg.jpg", "textures/leg.jpg", "textures/black.jpg", "textures/black.jpg",
+    "textures/leg.jpg", "textures/leg.jpg", "textures/leg.jpg", "textures/leg.jpg", "textures/black.jpg", "textures/black.jpg"
+};
 
 
 // 构造函数，初始化 Camera
 MyGLWidget::MyGLWidget(QWidget *parent)
     : QOpenGLWidget(parent),
-      camera(10.0f, 10.0f, 5.0f) {}
+      camera(40.0f, 6.0f, 5.0f),
+      steve(nullptr) {
 
+    QSurfaceFormat format;
+    format.setDepthBufferSize(24);
+    format.setMajorVersion(3);
+    format.setMinorVersion(3);
+    format.setProfile(QSurfaceFormat::CompatibilityProfile);
+    setFormat(format);
+}
       // 析构函数
 MyGLWidget::~MyGLWidget() {
     delete skyboxShader;
@@ -46,6 +63,17 @@ void MyGLWidget::initializeGL() {
     initializeOpenGLFunctions();
     
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_TEXTURE_2D); // 确保启用纹理功能
+    // glClearDepth(1.0f);      
+    // glEnable(GL_CULL_FACE);  
+    // glCullFace(GL_BACK);    
+    
+    glClearDepth(1.0f);      // 设置深度缓冲区清除值
+    // glEnable(GL_CULL_FACE);  // 启用背面剔除，避免显示隐藏面
+    // glCullFace(GL_BACK);     // 剔除背面
+
+
+
 
     // 加载天空盒纹理
     faces = {
@@ -75,6 +103,18 @@ void MyGLWidget::initializeGL() {
     skyboxShader->use();
     skyboxShader->setInt("skybox", 0);
 
+
+    steve = new Steve(this, 3.0f);
+    
+    
+    // 测试是否存在纹理路径
+    // std::cout << "Texture paths size: " << texturePaths.size() << std::endl;
+    // for (const auto& path : texturePaths) {
+    // std::cout << "Path: " << path << std::endl;
+    // }
+    
+    
+    steve->loadTextures(texturePaths);
 }
 
 // 渲染场景
@@ -82,61 +122,34 @@ void MyGLWidget::paintGL() {
     // 清除颜色和深度缓冲区
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // 设置摄像机视角
-    glLoadIdentity();
-    camera.setView(); // 调用摄像机的视图设置
+    vec3 stevePosition(0.0f, 10.0f, 0.0f);
 
-    // 绘制原点的方块（简单的六面体）
-    glPushMatrix();
-    glColor3f(0.8f, 0.2f, 0.2f); // 设置颜色为红色
-    glTranslatef(0.0f, 10.0f, 0.0f); // 将方块抬高 0.5f，使其底面在原点
-    glScalef(1.0f, 1.0f, 1.0f);    // 调整方块大小为 1x1x1
-    glBegin(GL_QUADS);
+    // // 打印摄像机位置
+    // camera.printPosition();
 
-    // 前面
-    glVertex3f(-0.5f, -0.5f, 0.5f);
-    glVertex3f(0.5f, -0.5f, 0.5f);
-    glVertex3f(0.5f, 0.5f, 0.5f);
-    glVertex3f(-0.5f, 0.5f, 0.5f);
+    // // 打印 Steve 位置
+    // steve->printPosition();
 
-    // 后面
-    glVertex3f(-0.5f, -0.5f, -0.5f);
-    glVertex3f(0.5f, -0.5f, -0.5f);
-    glVertex3f(0.5f, 0.5f, -0.5f);
-    glVertex3f(-0.5f, 0.5f, -0.5f);
 
-    // 左面
-    glVertex3f(-0.5f, -0.5f, -0.5f);
-    glVertex3f(-0.5f, -0.5f, 0.5f);
-    glVertex3f(-0.5f, 0.5f, 0.5f);
-    glVertex3f(-0.5f, 0.5f, -0.5f);
+    // 渲染其他物体
+    camera.setView(stevePosition); // 设置摄像机视角
 
-    // 右面
-    glVertex3f(0.5f, -0.5f, -0.5f);
-    glVertex3f(0.5f, -0.5f, 0.5f);
-    glVertex3f(0.5f, 0.5f, 0.5f);
-    glVertex3f(0.5f, 0.5f, -0.5f);
+    drawAxis(1000.0f); // 绘制坐标轴
 
-    // 顶面
-    glVertex3f(-0.5f, 0.5f, -0.5f);
-    glVertex3f(0.5f, 0.5f, -0.5f);
-    glVertex3f(0.5f, 0.5f, 0.5f);
-    glVertex3f(-0.5f, 0.5f, 0.5f);
+    
 
-    // 底面
-    glVertex3f(-0.5f, -0.5f, -0.5f);
-    glVertex3f(0.5f, -0.5f, -0.5f);
-    glVertex3f(0.5f, -0.5f, 0.5f);
-    glVertex3f(-0.5f, -0.5f, 0.5f);
+    steve->draw(); // 绘制 Steve
 
-    glEnd();
-    glPopMatrix();
+
 
     // 渲染天空盒
-    glDepthFunc(GL_LEQUAL);
+    glDepthMask(GL_FALSE); // 禁止写入深度缓冲区
+    glDepthFunc(GL_LEQUAL); // 设置深度测试模式为小于等于
+
+    
     skyboxShader->use();
-    glm::mat4 view = glm::mat4(glm::mat3(camera.GetViewMatrix())); // 移除位移部分
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)width() / height(), 0.1f, 100.0f);
+    glm::mat4 view = glm::mat4(glm::mat3(camera.GetViewMatrix(glm::vec3(stevePosition.x, stevePosition.y, stevePosition.z)))); // 移除位移部分
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)width() / height(), 0.1f, 500.0f);
     skyboxShader->setMat4("view", view);
     skyboxShader->setMat4("projection", projection);
 
@@ -145,20 +158,39 @@ void MyGLWidget::paintGL() {
     glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
-    glDepthFunc(GL_LESS);
+
+
+    glDepthMask(GL_TRUE); // 恢复深度缓冲区写入
+    glDepthFunc(GL_LESS); // 恢复深度测试到默认
+
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45.0, (float)width() / height(), 0.1, 1000.0);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+
+
+
+    
+
+
+
+
+    
+
+
 
 }
 
 // 调整窗口大小
 void MyGLWidget::resizeGL(int width, int height) {
     glViewport(0, 0, width, height);
-    // glMatrixMode(GL_PROJECTION);
-    // glLoadIdentity();
-    // gluPerspective(45.0, GLfloat(width) / height, 0.1, 100.0);
-    // glMatrixMode(GL_MODELVIEW);
 }
 
-
+// 加载天空盒纹理
 unsigned int MyGLWidget::loadCubemap(std::vector<std::string> faces) {
     unsigned int textureID;
     glGenTextures(1, &textureID);
@@ -190,11 +222,11 @@ unsigned int MyGLWidget::loadCubemap(std::vector<std::string> faces) {
 // 处理键盘输入
 void MyGLWidget::keyPressEvent(QKeyEvent *e) {
     switch (e->key()) {
-    case Qt::Key_Z:
+    case Qt::Key_Z: // 顺时针旋转
         camera.rotateClockwise();
         update(); // 触发重新绘制
         break;
-    case Qt::Key_C:
+    case Qt::Key_C: // 逆时针旋转
         camera.rotateCounterClockwise();
         update(); // 触发重新绘制
         break;
@@ -203,3 +235,27 @@ void MyGLWidget::keyPressEvent(QKeyEvent *e) {
     }
 }
 
+
+// 用于绘制坐标轴
+void MyGLWidget::drawAxis(float length) {
+    glLineWidth(2.0f); // 设置线条宽度
+
+    glBegin(GL_LINES);
+
+    // X 轴：红色
+    glColor3f(1.0f, 0.0f, 0.0f); // 红色
+    glVertex3f(0.0f, 0.0f, 0.0f); // 起点
+    glVertex3f(length, 0.0f, 0.0f); // 终点
+
+    // Y 轴：绿色
+    glColor3f(0.0f, 1.0f, 0.0f); // 绿色
+    glVertex3f(0.0f, 0.0f, 0.0f); // 起点
+    glVertex3f(0.0f, length, 0.0f); // 终点
+
+    // Z 轴：蓝色
+    glColor3f(0.0f, 0.0f, 1.0f); // 蓝色
+    glVertex3f(0.0f, 0.0f, 0.0f); // 起点
+    glVertex3f(0.0f, 0.0f, length); // 终点
+
+    glEnd();
+}

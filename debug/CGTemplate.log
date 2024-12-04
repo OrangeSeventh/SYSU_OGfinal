@@ -1,1 +1,118 @@
-﻿  CGTemplate.vcxproj -> C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\debug\CGTemplate.exe
+﻿  moc_myglwidget.cpp
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(22,9): error C3861: “initializeOpenGLFunctions”: 找不到标识符
+  (编译源文件“debug/moc_myglwidget.cpp”)
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(144,13): error C2039: "glPushMatrix": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“debug/moc_myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(145,13): error C2039: "glTranslatef": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“debug/moc_myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(149,13): error C2039: "glBegin": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“debug/moc_myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(163,21): error C2039: "glTexCoord2f": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“debug/moc_myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(164,21): error C2039: "glVertex3f": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“debug/moc_myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(167,13): error C2039: "glEnd": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“debug/moc_myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(171,13): error C2039: "glPopMatrix": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“debug/moc_myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+  main.cpp
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(22,9): error C3861: “initializeOpenGLFunctions”: 找不到标识符
+  (编译源文件“main.cpp”)
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(144,13): error C2039: "glPushMatrix": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“main.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(145,13): error C2039: "glTranslatef": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“main.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(149,13): error C2039: "glBegin": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“main.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(163,21): error C2039: "glTexCoord2f": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“main.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(164,21): error C2039: "glVertex3f": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“main.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(167,13): error C2039: "glEnd": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“main.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(171,13): error C2039: "glPopMatrix": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“main.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+  myglwidget.cpp
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(22,9): error C3861: “initializeOpenGLFunctions”: 找不到标识符
+  (编译源文件“myglwidget.cpp”)
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(144,13): error C2039: "glPushMatrix": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(145,13): error C2039: "glTranslatef": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(149,13): error C2039: "glBegin": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(163,21): error C2039: "glTexCoord2f": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(164,21): error C2039: "glVertex3f": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(167,13): error C2039: "glEnd": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(171,13): error C2039: "glPopMatrix": 不是 "QOpenGLFunctions_3_3_Core" 的成员
+  (编译源文件“myglwidget.cpp”)
+      D:\qt\6.8.0\msvc2022_64\include\QtOpenGL\qopenglfunctions_3_3_core.h(28,23):
+      参见“QOpenGLFunctions_3_3_Core”的声明
+  
+  正在生成代码...

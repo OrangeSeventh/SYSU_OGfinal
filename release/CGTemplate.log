@@ -1,0 +1,32 @@
+﻿  main.cpp
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(92,43): warning C4100: “z”: 未引用的形参
+  (编译源文件“main.cpp”)
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(92,34): warning C4100: “y”: 未引用的形参
+  (编译源文件“main.cpp”)
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(92,25): warning C4100: “x”: 未引用的形参
+  (编译源文件“main.cpp”)
+  
+  myglwidget.cpp
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(92,43): warning C4100: “z”: 未引用的形参
+  (编译源文件“myglwidget.cpp”)
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(92,34): warning C4100: “y”: 未引用的形参
+  (编译源文件“myglwidget.cpp”)
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(92,25): warning C4100: “x”: 未引用的形参
+  (编译源文件“myglwidget.cpp”)
+  
+  moc_myglwidget.cpp
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(92,43): warning C4100: “z”: 未引用的形参
+  (编译源文件“release/moc_myglwidget.cpp”)
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(92,34): warning C4100: “y”: 未引用的形参
+  (编译源文件“release/moc_myglwidget.cpp”)
+  
+C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\steve.h(92,25): warning C4100: “x”: 未引用的形参
+  (编译源文件“release/moc_myglwidget.cpp”)
+  
+  正在生成代码...
+  CGTemplate.vcxproj -> C:\Users\Orange_Seventh\Desktop\计图\SYSU_OGfinal\release\CGTemplate.exe

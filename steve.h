@@ -1,92 +1,82 @@
 #ifndef STEVE_H
 #define STEVE_H
 
-#include "vec3.h"
-#include <GL/gl.h>
-#include <cmath> // for sin() and cos()
-class Steve {
+#include <QOpenGLFunctions_3_3_Core>
+#include <vector>
+#include <string>
+#include <iostream>
+#include "include/stb_image.h"
+#include <QOpenGLContext>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
+class Steve : protected QOpenGLFunctions_3_3_Core {
 public:
-    vec3 position;
     float size;
-    float bodyWidth, bodyHeight;
-    float armSize, legSize;
-    
-    float leftLegAngle, rightLegAngle;  // 左右腿的旋转角度
-    float leftArmAngle, rightArmAngle;  // 左右臂的旋转角度
-    
-    Steve(float size = 30.0f) 
-        : position(0.0f, 0.0f, 0.0f), size(size),
-          bodyWidth(size * 0.5f), bodyHeight(size * 1.2f), 
-          armSize(size * 0.2f), legSize(size * 0.2f),
-          leftLegAngle(0.0f), rightLegAngle(0.0f),
-          leftArmAngle(0.0f), rightArmAngle(0.0f) {}
+    float x, y, z; // Steve 的中心位置
+    GLuint textures[6 * 6]; // 每个身体部位6个面，总共6个部位
+    GLuint VAO, VBO; // 顶点数组对象和顶点缓冲对象
+    GLuint shaderProgram; // 着色器程序ID
 
-    void updateMovement(float deltaTime) {
-        // 更新角色四肢的旋转角度，用于动画效果
-        // 例如，根据时间逐渐改变四肢的角度，模拟走路
-        leftLegAngle = sinf(deltaTime * 2.0f) * 45.0f;  // 左腿的角度
-        rightLegAngle = sinf(deltaTime * 2.0f + 3.14f) * 45.0f;  // 右腿的角度
-        leftArmAngle = sinf(deltaTime * 2.0f) * 45.0f;  // 左臂的角度
-        rightArmAngle = sinf(deltaTime * 2.0f + 3.14f) * 45.0f;  // 右臂的角度
+    // 构造函数需要传递GL上下文和着色器程序ID
+    Steve(QOpenGLFunctions_3_3_Core* glContext, GLuint shaderProg, float sz = 30.0f)
+        : size(sz), x(0.0f), y(0.0f), z(0.0f), shaderProgram(shaderProg) {
+        glContext->initializeOpenGLFunctions(); // 初始化OpenGL函数
+        setupMesh(glContext); // 设置网格
     }
 
-    void draw() {
-        // 绘制头部
-        drawCube(position.x, position.y + 30.0f, position.z, 8.0f,8.0f,8.0f);
-
-        // 绘制躯干
-        drawCube(position.x, position.y +20.0f, position.z, 8.0f, 12.0f, 6.0f);
-
-        // 绘制手臂（根据角度旋转）
-        //drawArm(position.x - bodyWidth / 2 - armSize, position.y + bodyHeight / 2, position.z, leftArmAngle);  // 左臂
-        //drawArm(position.x + bodyWidth / 2 + armSize, position.y + bodyHeight / 2, position.z, rightArmAngle);  // 右臂
-        drawCube(-7.0f, 20.0f, 0.0f, 6.0f, 12.0f, 6.0f);
-        drawCube(7.0f, 20.0f, 0.0f, 6.0f, 12.0f, 6.0f);
-
-
-        // 绘制腿部（根据角度旋转）
-        //drawLeg(position.x - bodyWidth / 4, position.y - bodyHeight / 2 - legSize, position.z, leftLegAngle);  // 左腿
-        //drawLeg(position.x + bodyWidth / 4, position.y - bodyHeight / 2 - legSize, position.z, rightLegAngle);  // 右腿
-        drawCube(-2.0f, 7.0f, 0.0f, 4.0f, 14.0f, 4.0f);
-        drawCube(2.0f, 7.0f, 0.0f, 4.0f, 14.0f, 4.0f);
-    
-    }
-
-    void drawArm(float x, float y, float z, float angle) {
-        glPushMatrix();
-        glTranslatef(x, y, z);
-        glRotatef(angle, 1.0f, 0.0f, 0.0f);  // 绕X轴旋转，模拟手臂摆动
-        drawCube(0.0f, 0.0f, 0.0f, armSize, armSize * 4, armSize);  // 绘制手臂
-        glPopMatrix();
-    }
-
-    void drawLeg(float x, float y, float z, float angle) {
-        glPushMatrix();
-        glTranslatef(x, y, z);
-        glRotatef(angle, 1.0f, 0.0f, 0.0f);  // 绕X轴旋转，模拟腿部摆动
-        drawCube(0.0f, 0.0f, 0.0f, legSize, legSize * 4, legSize);  // 绘制腿部
-        glPopMatrix();
-    }
-
-    void drawCube(float x, float y, float z, float w, float h, float d) {
+    // 初始化立方体的顶点缓冲和数组缓冲
+    void setupMesh(QOpenGLFunctions_3_3_Core* glContext) {
         GLfloat vertices[] = {
-            -w, -h, -d,  w, -h, -d,  w,  h, -d, -w,  h, -d,
-            -w, -h,  d,  w, -h,  d,  w,  h,  d, -w,  h,  d,
-            -w, -h, -d, -w,  h, -d, -w,  h,  d, -w, -h,  d,
-             w, -h, -d,  w,  h, -d,  w,  h,  d,  w, -h,  d,
-            -w, -h, -d, -w, -h,  d,  w, -h,  d,  w, -h, -d,
-            -w,  h, -d, -w,  h,  d,  w,  h,  d,  w,  h, -d
+            // 顶点坐标和纹理坐标
+            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+            0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
+            0.5f,  0.5f, -0.5f, 1.0f, 1.0f,
+            0.5f,  0.5f, -0.5f, 1.0f, 1.0f,
+            -0.5f,  0.5f, -0.5f, 0.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+
+            -0.5f, -0.5f,  0.5f, 0.0f, 0.0f,
+            0.5f, -0.5f,  0.5f, 1.0f, 0.0f,
+            0.5f,  0.5f,  0.5f, 1.0f, 1.0f,
+            0.5f,  0.5f,  0.5f, 1.0f, 1.0f,
+            -0.5f,  0.5f,  0.5f, 0.0f, 1.0f,
+            -0.5f, -0.5f,  0.5f, 0.0f, 0.0f,
         };
 
-        glPushMatrix();
-        glTranslatef(x, y, z);
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(3, GL_FLOAT, 0, vertices);
-        glDrawArrays(GL_QUADS, 0, 24);
-        glDisableClientState(GL_VERTEX_ARRAY);
-        glPopMatrix();
+        glContext->glGenVertexArrays(1, &VAO);
+        glContext->glGenBuffers(1, &VBO);
+        glContext->glBindVertexArray(VAO);
+
+        glContext->glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glContext->glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+        // 顶点位置属性
+        glContext->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+        glContext->glEnableVertexAttribArray(0);
+        // 纹理坐标属性
+        glContext->glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+        glContext->glEnableVertexAttribArray(1);
+
+        glContext->glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glContext->glBindVertexArray(0);
+    }
+
+    // 在给定位置、尺寸和部件索引的情况下绘制一个立方体
+    void drawTexturedCube(QOpenGLFunctions_3_3_Core* glContext, float x, float y, float z, float width, float height, float depth, int partIndex) {
+        glContext->glUseProgram(shaderProgram);
+
+        glm::mat4 model = glm::translate(glm::mat4(1.0f), glm::vec3(x, y, z));
+        model = glm::scale(model, glm::vec3(width, height, depth));
+        glContext->glUniformMatrix4fv(glContext->glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &model[0][0]);
+
+        glContext->glActiveTexture(GL_TEXTURE0);
+        glContext->glBindTexture(GL_TEXTURE_2D, textures[partIndex]);
+        glContext->glBindVertexArray(VAO);
+        glContext->glDrawArrays(GL_TRIANGLES, 0, 36); // 36 vertices make up a cube
+        glContext->glBindVertexArray(0);
+        glContext->glUseProgram(0);
     }
 };
-
 
 #endif // STEVE_H
